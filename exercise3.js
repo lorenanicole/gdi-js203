@@ -4,7 +4,7 @@ $("#myWordButton").on('click', function(e) {
     $('#results').empty();
     var myWord = $("#myWord").val();
     console.log(myWord);
-    var apiUrl = "http://words.bighugelabs.com/api/2/<apiKeyFixMe>/";
+    var apiUrl = "http://words.bighugelabs.com/api/2/54ff63dd1b02b162870fbde55d56049f/";
     var dataFormat = "/json";
 
     if (myWord.length > 0) {
