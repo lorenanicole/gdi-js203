@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Video Watcher</title>
+      <link rel="stylesheet" type="text/css" href="../common/bootstrap.css">
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="span12">
+               <h2 class="page-header">
+               Best Videos Ever ❤
+               </h1>
+            </div>
+         </div>
+         <div class="row">
+            <div class="span3">
+               <ul id="videos-list">
+               </ul>
+            </div>
+            <div class="span9" id="video-watcher">
+            </div>
+         </div>
+      </div>
+      <script src="https://apis.google.com/js/platform.js" async defer></script>
+      <script type="text/javascript" src="../common/youtube.js"></script>
+      <script type="text/javascript" src="../common/jquery.min.js"></script>
+      <script>
+         function addVideoToList(video) {
+         
+            var videoLink = $('<a>');
+            videoLink.append(video.title);
+            var linkUrl = videoLink.attr('href');
+            var thumbnailUrl = youtube.generateThumbnailUrl(video.youtubeId);
+            var thumbnailImg = $('<img>');
+            thumbnailImg.attr('src', thumbnailUrl);
+            videoLink.append(thumbnailImg);
+         
+            videoLink.on('click', function(e) {
+                e.preventDefault();
+                var videoTitle = $('<h2>');
+                videoTitle.html(video.title + ' <small>' + video.author + '</small>');
+                var videoEmbed = $('<iframe></iframe><br><br>');
+                videoEmbed.attr('src', youtube.generateEmbedUrl(video.youtubeId));
+                var googleChar = $('<img>')
+                googleChar.attr('src', 'https://chart.googleapis.com/chart?chs=200x125&cht=gom&chd=t:'+ video.rating + '&chls=3,5,5&chco=FF0000,FF8040,FFFF00,00FF00,00FFFF,0000FF,800080');
+                videoEmbed.attr('width', 560);
+                videoEmbed.attr('height', 315);
+                var videoWatcher = $('#video-watcher');
+                videoWatcher.hide();
+                videoWatcher.empty();
+                videoWatcher.append(videoTitle);
+                videoWatcher.append(videoEmbed);
+                videoWatcher.append(googleChar);
+                videoWatcher.fadeIn();
+            });
+         
+            var videoItem = $('<li>');
+            videoItem.append(videoLink);
+            $('#videos-list').append(videoItem);
+         }
+         
+         var videos = [
+          {"youtubeId": "TddFnTB_7IM",
+            "title": "Trip through the 80s",
+            "author": "meliberty", "rating": 80
+          },
+          {"youtubeId": "HwSKkKrUzUk",
+            "title": "Circle of Life",
+            "author": "parkerjademerce", "rating": 70
+          },
+          {"youtubeId": "il2IrgFHfsg",
+            "title": "The Ooooh Cat",
+            "author": "RnBTree", "rating": 90
+          },
+          {"youtubeId": "epUk3T2Kfno",
+            "title": "Otters Holding Hands",
+            "author": "cynthiaholmes", "rating": 85
+          }
+         ]
+         
+         for (var i = 0; i < videos.length; i++) {
+           addVideoToList(videos[i]);
+         }
+         
+      </script>
+   </body>
+</html>
